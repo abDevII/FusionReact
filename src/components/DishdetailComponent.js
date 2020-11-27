@@ -5,10 +5,6 @@ class DishDetail extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            dish: null
-        }
     }
 
     renderDish(dish) {
@@ -34,7 +30,7 @@ class DishDetail extends Component {
                         return (
                             <ul className="list-unstyled">
                                 <li className="mb-3">{comment.comment}</li>
-                                <li>-- {comment.author} , {new Date(comment.date).toDateString()}</li>
+                                <li>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
                             </ul>
                         );                            
                     })}                       
@@ -51,11 +47,13 @@ class DishDetail extends Component {
     render() {
         if (this.props.dish != null) {
             return (
-                <div key={this.props.dish.id} className="row">
-                    {this.renderDish(this.props.dish)}
-                    {this.renderComments(this.props.dish.comments)}
+                <div className="container">
+                    <div key={this.props.dish.id} className="row">
+                        {this.renderDish(this.props.dish)}
+                        {this.renderComments(this.props.dish.comments)}
+                    </div>
                 </div>
-            );
+            );            
         }
         else {
             return (
